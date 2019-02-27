@@ -9,8 +9,8 @@ router.get('/', function(req, res, next) {
     res.send(requests.toString());
 });
 
-function verifySecret(res) {
-    console.log('verifying secret', process.env.NPM_SECRET);
+// TODO: how to verify header 'x-npm-signature': 'sha256=' ?
+function verifySecret(sig) {
     if ('' === process.env.NPM_SECRET)
         return true;
     
@@ -21,7 +21,7 @@ router.post('/npm', function(req, res) {
     requests.push(JSON.stringify(req.body));
     console.log(req.headers);
 
-    verifySecret(res);
+    verifySecret(req.headers['x-npm-signature']);
 
     if (req.body['event'] === 'package:publish') {
         if (req.body['name'] === '@patternfly/patternfly') {

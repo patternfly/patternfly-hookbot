@@ -1,5 +1,4 @@
-FROM alpine:3.9
-RUN apk add --no-cache npm
+FROM node:8.15-alpine
 RUN apk add --no-cache git
 # RUN apk add --no-cache bash
 

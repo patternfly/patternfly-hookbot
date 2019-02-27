@@ -1,3 +1,5 @@
 node_modules
-repos
 npm-debug.log
+.secret
+env.sh
+test.json
