@@ -1,5 +1,5 @@
-FROM node:8.15-alpine
-RUN apk add --no-cache git
+FROM node:8.15.0
+# RUN apk add --no-cache git
 # RUN apk add --no-cache bash
 
 # Create app directory
