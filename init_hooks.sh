@@ -1,7 +1,7 @@
 #!/bin/bash
 # https://github.com/npm/registry/blob/master/docs/hooks/endpoints.md#hooks-api-endpoints
 
-HOOK_ENDPOINT="http://hookbot-hookbot.6923.rh-us-east-1.openshiftapps.com/"
+HOOK_ENDPOINT="http://hookbot-hookbot.6923.rh-us-east-1.openshiftapps.com/hooks/npm"
 
 
 if [ -e .secret ]; then
