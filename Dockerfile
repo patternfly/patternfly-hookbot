@@ -1,5 +1,6 @@
 FROM node:alpine
 RUN apk add --no-cache git
+RUN apk add --no-cache libcurl
 # RUN apk add --no-cache bash
 
 # Create app directory
