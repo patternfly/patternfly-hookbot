@@ -1,6 +1,6 @@
-FROM node:alpine
+FROM alpine:3.9
+RUN apk add --no-cache npm
 RUN apk add --no-cache git
-RUN apk add --no-cache libcurl
 # RUN apk add --no-cache bash
 
 # Create app directory
