@@ -19,16 +19,14 @@ function verifySecret(sig) {
 
 router.post('/npm', function(req, res) {
     requests.push(JSON.stringify(req.body));
-    console.log(req.headers);
-
     verifySecret(req.headers['x-npm-signature']);
 
     if (req.body['event'] === 'package:publish') {
         if (req.body['name'] === '@patternfly/patternfly') {
-            upgradePackage('https://github.com/redallen/patternfly-react', req.body['name'], req.body['change']['version'])
+            upgradePackage('https://github.com/patternfly/patternfly-react', req.body['name'], req.body['change']['version']);
         }
         else if (req.body['name'] === 'registrytestpackage') {
-            upgradePackage('https://github.com/redallen/patternfly-react', req.body['name'], req.body['change']['version'])
+            upgradePackage('https://github.com/redallen/patternfly-react', req.body['name'], req.body['change']['version']);
         }
     }
     res.sendStatus(200);
