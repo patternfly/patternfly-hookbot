@@ -1,8 +1,8 @@
-var express = require('express');
-var router = express.Router();
-var upgradePackage = require('../lib/upgradePackage');
+const express = require('express');
+const router = express.Router();
+const upgradePackage = require('../lib/upgradePackage');
 
-var requests = [];
+let requests = [];
 
 /* GET list of handled hook requests. */
 router.get('/', function(req, res, next) {
@@ -20,13 +20,17 @@ function verifySecret(sig) {
 router.post('/npm', function(req, res) {
     requests.push(JSON.stringify(req.body));
     verifySecret(req.headers['x-npm-signature']);
+    console.info('Got hook:', req);
 
     if (req.body['event'] === 'package:publish') {
         if (req.body['name'] === '@patternfly/patternfly') {
-            upgradePackage('https://github.com/patternfly/patternfly-react', req.body['name'], req.body['change']['version']);
+            upgradePackage('https://github.com/patternfly/patternfly-react', req.body['name'], req.body['change']['version'])
+            .catch((err) => console.error('Error upgrading : ', err));
         }
         else if (req.body['name'] === 'registrytestpackage') {
-            upgradePackage('https://github.com/redallen/patternfly-react', req.body['name'], req.body['change']['version']);
+            // Hack to test hooks
+            upgradePackage('https://github.com/patternfly/patternfly-react', '@patternfly/patternfly', '1.0.213')
+            .catch((err) => console.error('Error upgrading : ', err));
         }
     }
     res.sendStatus(200);
