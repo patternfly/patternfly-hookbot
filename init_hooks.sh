@@ -14,4 +14,4 @@ echo "secret: ${SECRET}"
 
 # Auto-PR
 npm hook add "registrytestpackage" $HOOK_ENDPOINT $SECRET
-# npm hook add "@patternfly/patternfly" $HOOK_ENDPOINT $SECRET
+npm hook add "@patternfly/patternfly" $HOOK_ENDPOINT $SECRET
