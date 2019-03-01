@@ -21,7 +21,7 @@ router.get('/npm', function(req, res, next) {
 router.post('/npm', function(req, res) {
     requests.push(JSON.stringify(req.body));
     verifySecret(req.headers['x-npm-signature']);
-    console.info('Got hook:', req);
+    console.info('Got hook');
 
     if (req.body['event'] === 'package:publish') {
         if (req.body['name'] === '@patternfly/patternfly') {
