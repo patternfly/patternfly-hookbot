@@ -4,11 +4,6 @@ const upgradePackage = require('../lib/upgradePackage');
 
 let requests = [];
 
-/* GET list of handled hook requests. */
-router.get('/', function(req, res, next) {
-    res.send(requests.toString());
-});
-
 // TODO: how to verify header 'x-npm-signature': 'sha256=' ?
 function verifySecret(sig) {
     if ('' === process.env.NPM_SECRET)
@@ -17,6 +12,12 @@ function verifySecret(sig) {
     return false;
 }
 
+/* GET list of handled hook requests. */
+router.get('/npm', function(req, res, next) {
+    res.send(requests.toString());
+});
+
+/* POST handle NPM webhook */
 router.post('/npm', function(req, res) {
     requests.push(JSON.stringify(req.body));
     verifySecret(req.headers['x-npm-signature']);
@@ -29,7 +30,7 @@ router.post('/npm', function(req, res) {
         }
         else if (req.body['name'] === 'registrytestpackage') {
             // Hack to test hooks
-            upgradePackage('https://github.com/patternfly/patternfly-react', '@patternfly/patternfly', '1.0.213')
+            upgradePackage('https://github.com/patternfly/patternfly-react', '@patternfly/patternfly', '1.0.215')
             .catch((err) => console.error('Error upgrading : ', err));
         }
     }
